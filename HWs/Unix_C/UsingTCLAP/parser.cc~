@@ -1,0 +1,74 @@
+/*
+* Filename:  parser.cpp
+* Date:      02/07/2020
+* Author:    Rutvij Shah
+* Email:     rutvij.shah@utdallas.edu
+* Course:    CS3377.502 Spring 2020
+* Version:   1.0
+* Copyright: © 2020 Rutvij Shah. All rights reserved.
+*
+* Description:
+*   Core program logic called by main and interfaced with the TCLAP lib functions.
+*/
+
+#include "prog.h"
+
+using namespace std;
+using namespace TCLAP;
+
+typedef int (*fnptr) (int);
+
+void argParser(map<int, string> argMap, CmdLine& cmd){
+
+  //XNOR on u and l flag's boolean return.
+ 
+  if(!(StringToBool(argMap[UPPER])^StringToBool(argMap[LOWER]))){
+    
+      cout << "Upper and Lower options are mutually exclusive"
+         << " and exhaustive. Exactly one of the two is needed."
+         << endl;
+    
+      PrintUsage(cmd);
+  }
+  else{
+      ifstream infile;
+      
+      ofstream outfile;
+      
+      infile.open(argMap[IFILE]);
+      
+      outfile.open(argMap[OFILE]);
+      
+      if(infile.is_open() && outfile.is_open()){
+          char ch;
+          
+          fnptr upOrDown;
+          
+          if(StringToBool(argMap[UPPER])){
+             upOrDown = toupper;
+          }
+          else{
+              upOrDown = tolower;
+          }
+          
+          while(infile.good()){
+              infile.get(ch);
+              outfile.put(upOrDown(ch));
+          }
+      }
+    
+      outfile.close();
+      
+      infile.close();
+  }
+    
+    
+} 
+
+void PrintUsage(CmdLine &cmd){
+    (cmd.getOutput())->usage(cmd);
+}
+
+inline const bool StringToBool(string s){
+    return s == "true" ? true : false;
+}

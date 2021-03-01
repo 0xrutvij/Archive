@@ -1,0 +1,1 @@
+g++ -I ~/home/Assignment_2/include/ main.cc parser.cc -o program2

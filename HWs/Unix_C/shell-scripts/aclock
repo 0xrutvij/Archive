@@ -1,0 +1,4 @@
+#! /bin/bash
+#Simple shell script to have a clock running.
+
+watch -t -n1 "date +%T | figlet"

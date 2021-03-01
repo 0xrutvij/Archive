@@ -1,0 +1,7 @@
+#! /bin/zsh
+
+PID=`pgrep -f topclock`
+
+kill $PID
+
+clear

@@ -1,0 +1,2 @@
+#! /bin/zsh
+scp -r  rds190000@cs1.utdallas.edu:/home/010/r/rd/rds190000/home/$1  /Users/rutvijshah/Desktop 
